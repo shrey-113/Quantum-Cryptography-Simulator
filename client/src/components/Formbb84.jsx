@@ -1,13 +1,30 @@
 import React, { useState } from "react";
-// import Box from "@mui/material/Box";
+import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { Stack, Button } from "@mui/material";
+import { Stack, Button, Modal } from "@mui/material";
 import TextField from "@mui/material/TextField";
+import LineGraph from "./graphs/LineGraph";
 // import Divider from '@mui/material/Divider';
-
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  height: 1000,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
 export default function Formbb84() {
   const [numQubits, setNumQubits] = useState("");
   const [errorRate, setErrorRate] = useState("");
+  const [response, setResponse] = useState({});
+
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const makeRequest = async () => {
     try {
@@ -28,10 +45,13 @@ export default function Formbb84() {
 
       // Handle the response here if needed
       const data = await response.json();
-      console.log(data);
+      console.log(data)
+      // setResponse(data);
+      // console.log(response?.results)
     } catch (error) {
       console.error("Error:", error);
     }
+    handleOpen();
   };
 
   return (
@@ -83,6 +103,22 @@ export default function Formbb84() {
           >
             Simulate
           </Button>
+
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box sx={style}>
+              <Stack direction="column">
+                <LineGraph />
+                <Typography id="modal-modal-title" variant="h6" component="h2">
+                  {response?.results}
+                </Typography>
+              </Stack>
+            </Box>
+          </Modal>
         </Stack>
       </Stack>
     </form>

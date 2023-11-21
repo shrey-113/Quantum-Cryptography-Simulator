@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { Stack } from "@mui/material";
@@ -9,6 +9,8 @@ import CodeHighlighter from "../components/CodeHighlighter";
 import BB84QuantumKeyDistribution from "../components/SimulationBb84";
 
 export default function ProtocolBb84() {
+
+
   return (
     <Stack sx={{ flexGrow: 1 }} direction="column" spacing={5}>
       <Typography className="pt-10" variant="h2" sx={{ textAlign: "center" }}>
