@@ -9,22 +9,24 @@ export default function LandingPage() {
   const navigate = useNavigate();
 
   const handleExploreClick = () => {
-    // Navigate to the home page or the desired route
-    navigate("/home"); // Replace "/home" with the route you want to navigate to
+    navigate("/home");
   };
 
   return (
     <Box sx={{ flexGrow: 1, display: "flex", justifyContent: "center" }}>
-      <Stack direction="column" sx={{display:'flex',alignItems:'center'}}>
-      
-        <Typography className="pt-20 pb-20" variant="h1">
+      <Stack direction="column" spacing={4} sx={{ display: "flex", alignItems: "center",paddingTop:'75px' }}>
+        <img
+          src={Logo}
+          alt="logo"
+          style={{ height: "280px", width: "280px" }}
+        />
+        <Typography variant="h1">
           Quantum Academy
         </Typography>
         <Button
-          sx={{ width: "200px", height: "45px",borderRadius:'20px'}}
+          sx={{ width: "200px", height: "45px", borderRadius: "20px",bgcolor:'black' }}
           type="button"
           variant="outlined"
-          color="primary"
           onClick={handleExploreClick}
         >
           Explore

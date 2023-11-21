@@ -113,7 +113,11 @@ export default function Formbb84() {
             aria-describedby="modal-modal-description"
           >
             <Box sx={style}>
-              <Stack direction="column" spacing={15}>
+              <Stack direction="column" spacing={5}>
+                <Box sx={{ display: "flex", justifyContent: "center" }}>
+                  <Typography variant="h3">BB84 Analysis</Typography>
+                </Box>
+
                 <Stack direction="column">
                   <Typography
                     id="modal-modal-title"
@@ -188,7 +192,15 @@ export default function Formbb84() {
                   </Typography>
                 </Stack>
 
-                <Stack direction="column" spacing={6} sx={{display:'flex',justifyContent:'center',alignItems:'center'}}>
+                <Stack
+                  direction="column"
+                  spacing={6}
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
                   <LineGraph
                     aliceBases={response?.results?.alice_bases}
                     bobBases={response?.results?.bob_bases}

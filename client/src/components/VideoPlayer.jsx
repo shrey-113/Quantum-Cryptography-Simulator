@@ -3,8 +3,8 @@ import React from "react";
 export default function VideoPlayer() {
   return (
     <iframe
-      width="560"
-      height="315"
+      width="860"
+      height="465"
       src="https://www.youtube.com/embed/2kdRuqvIaww?si=Bt1N9D9u7UMURt6Y"
       title="YouTube video player"
       frameborder="0"
