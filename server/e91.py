@@ -73,18 +73,3 @@ def plot_sifted_key(sifted_key):
     plt.xlabel('Bit Value')
     plt.ylabel('Count')
     plt.show()
-
-# User input
-num_qubits = int(input("Enter the number of qubit pairs: "))
-
-# Running the simulation
-alice_bases, bob_bases, sifted_key = perform_e91_simulation(num_qubits)
-
-# Display results
-print(f"Alice's Bases: {alice_bases}")
-print(f"Bob's Bases: {bob_bases}")
-print(f"Sifted Key: {sifted_key}")
-
-# Visualization
-plot_bases_distribution(alice_bases, bob_bases)
-plot_sifted_key(sifted_key)
