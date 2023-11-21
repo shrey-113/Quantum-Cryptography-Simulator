@@ -47,7 +47,11 @@ def perform_e91_simulation(num_qubits):
         if alice_bases[i] == bob_bases[i]:  # Sift only when bases match
             sifted_key.append(measured_bits[2 * i])
 
-    return alice_bases, bob_bases, sifted_key
+    return {
+        'Alice Bases': alice_bases, 
+        'Bob Bases': bob_bases, 
+        'Sifted Key': sifted_key
+    }
 
 # Visualization Functions
 def plot_bases_distribution(alice_bases, bob_bases):

@@ -35,18 +35,17 @@ def run_e91():
     try:
         data = request.json
         num_qubit_pairs = data.get('num_qubit_pairs')
-
+        
         if num_qubit_pairs is None:
             raise ValueError("Missing 'num_qubit_pairs' in the request.")
 
         # Run the simulation
         result = perform_e91_simulation(num_qubit_pairs)
 
-        response_data = {
-            'results': result,
-        }
-
-        return jsonify(response_data)
+        # Convert NumPy arrays to lists in the result
+        result['Alice Bases'] = result['Alice Bases'].tolist()
+        result['Bob Bases'] = result['Bob Bases'].tolist()
+        return jsonify(result)
 
     except Exception as e:
         error_message = str(e)
