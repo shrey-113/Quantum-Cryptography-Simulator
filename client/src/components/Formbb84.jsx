@@ -5,7 +5,6 @@ import { Stack, Button, Modal } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import LineGraph from "./graphs/LineGraph";
 import ScatterPlot from "./graphs/ScatterPlot";
-// import Divider from '@mui/material/Divider';
 const style = {
   position: "absolute",
   top: "50%",
