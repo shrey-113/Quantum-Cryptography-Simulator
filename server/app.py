@@ -2,6 +2,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from bb84 import perform_qkd_simulation
+from e91 import perform_e91_simulation
 
 app = Flask(__name__)
 CORS(app)
@@ -19,18 +20,8 @@ def run_bb84():
         # Run the simulation
         result = perform_qkd_simulation(num_qubits, error_rate)
 
-        # Extract image paths from the result (adjust as needed)
-        bases_distribution_image = 'images/bases_distribution.png'
-        sifted_key_comparison_image = 'images/sifted_key_comparison.png'
-        error_distribution_image = 'images/error_distribution.png'
-
         response_data = {
             'results': result,
-            'images': {
-                'bases_distribution': bases_distribution_image,
-                'sifted_key_comparison': sifted_key_comparison_image,
-                'error_distribution': error_distribution_image
-            }
         }
 
         return jsonify(response_data)
@@ -38,6 +29,29 @@ def run_bb84():
     except Exception as e:
         error_message = str(e)
         return jsonify({'error': error_message}), 500
+
+@app.route('/run-e91', methods=['POST'])
+def run_e91():
+    try:
+        data = request.json
+        num_qubit_pairs = data.get('num_qubit_pairs')
+
+        if num_qubit_pairs is None:
+            raise ValueError("Missing 'num_qubit_pairs' in the request.")
+
+        # Run the simulation
+        result = perform_e91_simulation(num_qubit_pairs)
+
+        response_data = {
+            'results': result,
+        }
+
+        return jsonify(response_data)
+
+    except Exception as e:
+        error_message = str(e)
+        return jsonify({'error': error_message}), 500
+
 
 if __name__ == '__main__':
     app.run(debug=True)
