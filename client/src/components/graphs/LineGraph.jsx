@@ -2,52 +2,52 @@ import React from "react";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 
-export default function LineGraph() {
+export default function LineGraph({ aliceBases, bobBases }) {
+  const uniqueBases = Array.from(new Set([...aliceBases, ...bobBases])).sort();
+  const aliceCounts = uniqueBases.map(b => aliceBases.filter(base => base === b).length);
+  const bobCounts = uniqueBases.map(b => bobBases.filter(base => base === b).length);
+
   const options = {
     chart: {
-      type: "spline",
+      type: "line",
       width: 800,
-      height: 250,
+      height: 400,
     },
     title: {
-      text: null,
+      text: "Bases Distribution",
     },
     xAxis: {
-      categories: [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec",
-      ],
+      categories: uniqueBases,
+      title: {
+        text: 'Basis'
+      }
     },
     yAxis: {
       title: {
-        text: null,
-      },
+        text: 'Count'
+      }
     },
     series: [
       {
-        name: "Lectures Watched",
-        data: [10, 12, 5, 18, 22, 25, 28, 30, 32, 35, 38, 40],
+        name: "Alice",
+        data: aliceCounts,
+        marker: {
+          symbol: 'circle'
+        }
       },
       {
-        name: "Quizzes Attempted",
-        data: [5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27],
+        name: "Bob",
+        data: bobCounts,
+        marker: {
+          symbol: 'circle'
+        }
       },
     ],
     credits: {
       enabled: false,
     },
     legend: {
-      enabled: false,
+      enabled: true,
     },
   };
 

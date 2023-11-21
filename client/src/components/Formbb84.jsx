@@ -4,17 +4,19 @@ import Typography from "@mui/material/Typography";
 import { Stack, Button, Modal } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import LineGraph from "./graphs/LineGraph";
+import ScatterPlot from "./graphs/ScatterPlot";
 // import Divider from '@mui/material/Divider';
 const style = {
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
-  height: 1000,
+  width: 900,
+  height: 700,
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
+  overflowY: "scroll",
   p: 4,
 };
 export default function Formbb84() {
@@ -45,7 +47,7 @@ export default function Formbb84() {
 
       // Handle the response here if needed
       const data = await response.json();
-      // console.log(data)
+      console.log(data);
       setResponse(data);
       console.log(response?.results);
     } catch (error) {
@@ -111,11 +113,93 @@ export default function Formbb84() {
             aria-describedby="modal-modal-description"
           >
             <Box sx={style}>
-              <Stack direction="column">
-                <LineGraph />
-                <Typography id="modal-modal-title" variant="h6" component="h2">
-                  {response}
-                </Typography>
+              <Stack direction="column" spacing={15}>
+                <Stack direction="column">
+                  <Typography
+                    id="modal-modal-title"
+                    variant="h6"
+                    component="h2"
+                  >
+                    <span class="font-bold">Alice Bases : </span>
+                    {response?.results?.alice_bases}
+                  </Typography>
+                  <Typography
+                    id="modal-modal-title"
+                    variant="h6"
+                    component="h2"
+                  >
+                    <span class="font-bold">Alice Bits : </span>
+                    {response?.results?.alice_bits}
+                  </Typography>
+                  <Typography
+                    id="modal-modal-title"
+                    variant="h6"
+                    component="h2"
+                  >
+                    <span class="font-bold">Bob Bases : </span>
+                    {response?.results?.bob_bases}
+                  </Typography>
+                  <Typography
+                    id="modal-modal-title"
+                    variant="h6"
+                    component="h2"
+                  >
+                    <span class="font-bold">Matching Bases : </span>
+                    {response?.results?.matching_bases.map((element, index) => (
+                      <span key={index}>
+                        {element.toString()}{" "}
+                        {index !== response?.results?.matching_bases.length - 1
+                          ? ","
+                          : ""}
+                      </span>
+                    ))}
+                  </Typography>
+                  <Typography
+                    id="modal-modal-title"
+                    variant="h6"
+                    component="h2"
+                  >
+                    <span class="font-bold">Shifted Alice Bits : </span>
+                    {response?.results?.sifted_alice_bits}
+                  </Typography>
+                  <Typography
+                    id="modal-modal-title"
+                    variant="h6"
+                    component="h2"
+                  >
+                    <span class="font-bold">Shifted Bob Bits : </span>
+                    {response?.results?.sifted_bob_bits}
+                  </Typography>
+                  <Typography
+                    id="modal-modal-title"
+                    variant="h6"
+                    component="h2"
+                  >
+                    <span class="font-bold">Shifted Key Rate : </span>
+                    {response?.results?.sifted_key_rate}
+                  </Typography>
+                  <Typography
+                    id="modal-modal-title"
+                    variant="h6"
+                    component="h2"
+                  >
+                    <span class="font-bold">Quantum Bit Error Rate : </span>
+                    {response?.results?.qber}
+                  </Typography>
+                </Stack>
+
+                <Stack direction="column" spacing={6} sx={{display:'flex',justifyContent:'center',alignItems:'center'}}>
+                  <LineGraph
+                    aliceBases={response?.results?.alice_bases}
+                    bobBases={response?.results?.bob_bases}
+                  />
+                  <ScatterPlot
+                    siftedAliceBits={response?.results?.sifted_alice_bits}
+                    siftedBobBits={response?.results?.sifted_bob_bits}
+                    aliceBits={response?.results?.alice_bits}
+                    matchingBases={response?.results?.matching_bases}
+                  />
+                </Stack>
               </Stack>
             </Box>
           </Modal>
