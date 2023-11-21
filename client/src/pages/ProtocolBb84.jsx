@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { Stack } from "@mui/material";
@@ -6,7 +6,7 @@ import Divider from "@mui/material/Divider";
 import Formbb84 from "../components/Formbb84";
 import VideoPlayer from "../components/VideoPlayer";
 import CodeHighlighter from "../components/CodeHighlighter";
-import BB84QuantumKeyDistribution from "../components/SimulationBb84";
+import EmbeddedSimulation from "../components/EmbeddedSimulation";
 
 export default function ProtocolBb84() {
   return (
@@ -33,7 +33,6 @@ export default function ProtocolBb84() {
       <Typography className="" variant="h4" sx={{ textAlign: "center" }}>
         Simulation
       </Typography>
-      <BB84QuantumKeyDistribution />
 
       <Divider />
 
