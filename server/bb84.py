@@ -125,7 +125,16 @@ def perform_qkd_simulation(num_qubits, error_rate):
     # Save plots
     save_plots(alice_bases, bob_bases, sifted_alice_bits, sifted_bob_bits, matching_bases)
 
-    return alice_bits, alice_bases, bob_bases, sifted_alice_bits, sifted_bob_bits, qber, sifted_key_rate, matching_bases
+    return {
+        'alice_bits': alice_bits,
+        'alice_bases': alice_bases,
+        'bob_bases': bob_bases,
+        'sifted_alice_bits': sifted_alice_bits,
+        'sifted_bob_bits': sifted_bob_bits,
+        'qber': qber,
+        'sifted_key_rate': sifted_key_rate,
+        'matching_bases': matching_bases
+    }
 
 if __name__ == "__main__":
     try:

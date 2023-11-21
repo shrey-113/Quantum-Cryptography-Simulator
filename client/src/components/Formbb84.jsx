@@ -45,9 +45,9 @@ export default function Formbb84() {
 
       // Handle the response here if needed
       const data = await response.json();
-      console.log(data)
-      // setResponse(data);
-      // console.log(response?.results)
+      // console.log(data)
+      setResponse(data);
+      console.log(response?.results);
     } catch (error) {
       console.error("Error:", error);
     }
@@ -114,7 +114,7 @@ export default function Formbb84() {
               <Stack direction="column">
                 <LineGraph />
                 <Typography id="modal-modal-title" variant="h6" component="h2">
-                  {response?.results}
+                  {response}
                 </Typography>
               </Stack>
             </Box>
