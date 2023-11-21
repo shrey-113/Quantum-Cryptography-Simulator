@@ -42,7 +42,7 @@ export default function ProtocolE91() {
         <Typography className="" variant="h4" sx={{ textAlign: "center" }}>
           Code reference for E91
         </Typography>
-        <CodeHighlighter link="https://nbviewer.org/github/shrey-113/QKD-algorithms/blob/main/E91%20Quantum%20Key%20Distribution%20Protocol.ipynb" />
+        <CodeHighlighter link="https://nbviewer.org/github/Mandy767/QKD/blob/main/E91%20Quantum%20Key%20Distribution%20Protocol.ipynb" />
       </Stack>
 
       <Divider />
