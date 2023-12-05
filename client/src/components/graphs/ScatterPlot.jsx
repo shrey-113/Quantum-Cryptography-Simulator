@@ -104,7 +104,7 @@ export default function ScatterPlot({
           symbol: "circle",
           radius: 4,
         },
-        color: "lightcoral",
+        color: "green",
         zIndex: 2,
       },
       {

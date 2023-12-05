@@ -131,16 +131,16 @@ export default function Formbb84() {
                     variant="h6"
                     component="h2"
                   >
-                    <span class="font-bold">Alice Bits : </span>
-                    {response?.results?.alice_bits}
+                    <span class="font-bold">Bob Bases : </span>
+                    {response?.results?.bob_bases}
                   </Typography>
                   <Typography
                     id="modal-modal-title"
                     variant="h6"
                     component="h2"
                   >
-                    <span class="font-bold">Bob Bases : </span>
-                    {response?.results?.bob_bases}
+                    <span class="font-bold">Alice Bits : </span>
+                    {response?.results?.alice_bits}
                   </Typography>
                   <Typography
                     id="modal-modal-title"
@@ -162,7 +162,7 @@ export default function Formbb84() {
                     variant="h6"
                     component="h2"
                   >
-                    <span class="font-bold">Shifted Alice Bits : </span>
+                    <span class="font-bold">Sifted Bits : </span>
                     {response?.results?.sifted_alice_bits}
                   </Typography>
                   <Typography
@@ -170,15 +170,7 @@ export default function Formbb84() {
                     variant="h6"
                     component="h2"
                   >
-                    <span class="font-bold">Shifted Bob Bits : </span>
-                    {response?.results?.sifted_bob_bits}
-                  </Typography>
-                  <Typography
-                    id="modal-modal-title"
-                    variant="h6"
-                    component="h2"
-                  >
-                    <span class="font-bold">Shifted Key Rate : </span>
+                    <span class="font-bold">Sifted Key Rate : </span>
                     {response?.results?.sifted_key_rate}
                   </Typography>
                   <Typography
@@ -204,12 +196,12 @@ export default function Formbb84() {
                     aliceBases={response?.results?.alice_bases}
                     bobBases={response?.results?.bob_bases}
                   />
-                  <ScatterPlot
+                  {/* <ScatterPlot
                     siftedAliceBits={response?.results?.sifted_alice_bits}
                     siftedBobBits={response?.results?.sifted_bob_bits}
                     aliceBits={response?.results?.alice_bits}
                     matchingBases={response?.results?.matching_bases}
-                  />
+                  /> */}
                 </Stack>
               </Stack>
             </Box>

@@ -38,7 +38,7 @@ def run_e91():
         
         if num_qubit_pairs is None:
             raise ValueError("Missing 'num_qubit_pairs' in the request.")
-
+        
         # Run the simulation
         result = perform_e91_simulation(num_qubit_pairs)
 
@@ -49,6 +49,7 @@ def run_e91():
 
     except Exception as e:
         error_message = str(e)
+        print(error_message)
         return jsonify({'error': error_message}), 500
 
 

@@ -39,7 +39,9 @@ def perform_e91_simulation(num_qubits):
     simulator = Aer.get_backend('qasm_simulator')
     result = execute(qc, backend=simulator, shots=1).result()
     counts = result.get_counts(qc)
-    measured_bits = list(counts.keys())[0][::-1]
+
+    # Extract the bits from the counts
+    measured_bits = list(counts.keys())[0]
 
     # Sifting the key
     sifted_key = []
@@ -47,33 +49,38 @@ def perform_e91_simulation(num_qubits):
         if alice_bases[i] == bob_bases[i]:  # Sift only when bases match
             sifted_key.append(measured_bits[2 * i])
 
+    print(alice_bases)
+    print(bob_bases)
+    print(sifted_key)
+
     return {
         'Alice Bases': alice_bases, 
         'Bob Bases': bob_bases, 
         'Sifted Key': sifted_key
     }
 
-# Visualization Functions
-def plot_bases_distribution(alice_bases, bob_bases):
-    plt.figure(figsize=(12, 5))
-    plt.subplot(1, 2, 1)
-    sns.countplot(data=pd.DataFrame({'bases': alice_bases}), x='bases', order=['x', 'y', 'z'])
-    plt.title("Alice's Bases Distribution")
-    plt.xlabel('Basis')
-    plt.ylabel('Count')
 
-    plt.subplot(1, 2, 2)
-    sns.countplot(data=pd.DataFrame({'bases': bob_bases}), x='bases', order=['x', 'y', 'z'])
-    plt.title("Bob's Bases Distribution")
-    plt.xlabel('Basis')
-    plt.ylabel('Count')
-    plt.tight_layout()
-    plt.show()
+# # Visualization Functions
+# def plot_bases_distribution(alice_bases, bob_bases):
+#     plt.figure(figsize=(12, 5))
+#     plt.subplot(1, 2, 1)
+#     sns.countplot(data=pd.DataFrame({'bases': alice_bases}), x='bases', order=['x', 'y', 'z'])
+#     plt.title("Alice's Bases Distribution")
+#     plt.xlabel('Basis')
+#     plt.ylabel('Count')
 
-def plot_sifted_key(sifted_key):
-    plt.figure(figsize=(10, 5))
-    sns.countplot(data=pd.DataFrame({'sifted_key': sifted_key}), x='sifted_key', order=['0', '1'])
-    plt.title('Sifted Key Distribution')
-    plt.xlabel('Bit Value')
-    plt.ylabel('Count')
-    plt.show()
+#     plt.subplot(1, 2, 2)
+#     sns.countplot(data=pd.DataFrame({'bases': bob_bases}), x='bases', order=['x', 'y', 'z'])
+#     plt.title("Bob's Bases Distribution")
+#     plt.xlabel('Basis')
+#     plt.ylabel('Count')
+#     plt.tight_layout()
+#     plt.show()
+
+# def plot_sifted_key(sifted_key):
+#     plt.figure(figsize=(10, 5))
+#     sns.countplot(data=pd.DataFrame({'sifted_key': sifted_key}), x='sifted_key', order=['0', '1'])
+#     plt.title('Sifted Key Distribution')
+#     plt.xlabel('Bit Value')
+#     plt.ylabel('Count')
+#     plt.show()

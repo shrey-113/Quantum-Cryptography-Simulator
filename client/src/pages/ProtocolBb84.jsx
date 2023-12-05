@@ -7,7 +7,6 @@ import Formbb84 from "../components/Formbb84";
 import VideoPlayer from "../components/VideoPlayer";
 import CodeHighlighter from "../components/CodeHighlighter";
 
-
 export default function ProtocolBb84() {
   return (
     <Stack sx={{ flexGrow: 1 }} direction="column" spacing={5}>

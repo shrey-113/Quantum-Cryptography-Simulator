@@ -1,15 +1,21 @@
 import React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { Stack } from "@mui/material";
 
 export default function HomePage() {
-  return <Box sx={{ flexGrow: 1,display:'flex',justifyContent:'center' }} className="pt-3">
-
-    <Stack direction="row">
-      <Typography className="pt-10" variant="h2">
-            Welcome, Learner
+  return (
+    <Box sx={{ textAlign: "center", paddingTop: 3 }}>
+      <Typography variant="h2" gutterBottom>
+        Welcome, Learner
       </Typography>
-    </Stack>
-  </Box>;
+      <Typography paragraph>
+        Welcome to Quantum Academy, your gateway to the fascinating world of
+        quantum mechanics and Quantum Key Distribution (QKD). Whether you're a
+        curious mind eager to explore the fundamental principles of quantum
+        physics or a passionate enthusiast seeking to delve into the
+        cutting-edge field of quantum communication, Quantum Academy is your
+        platform for knowledge, collaboration, and community.
+      </Typography>
+    </Box>
+  );
 }
