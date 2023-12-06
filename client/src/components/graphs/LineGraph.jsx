@@ -3,6 +3,7 @@ import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 
 export default function LineGraph({ aliceBases, bobBases }) {
+  console.log(aliceBases)
   const uniqueBases = Array.from(new Set([...aliceBases, ...bobBases])).sort();
   const aliceCounts = uniqueBases.map(b => aliceBases.filter(base => base === b).length);
   const bobCounts = uniqueBases.map(b => bobBases.filter(base => base === b).length);

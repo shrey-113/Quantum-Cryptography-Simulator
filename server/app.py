@@ -16,7 +16,7 @@ def run_bb84():
 
         if num_qubits is None or error_rate is None:
             raise ValueError("Missing 'num_qubits' or 'error_rate' in the request.")
-
+        
         # Run the simulation
         result = perform_qkd_simulation(num_qubits, error_rate)
 
