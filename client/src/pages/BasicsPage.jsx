@@ -1,22 +1,23 @@
 import { useState } from "react";
-import OpenAI from "openai";
+import {
+  Button,
+  Dialog,
+  DialogContent,
+  TextareaAutosize,
+  Typography,
+} from "@mui/material";
 
 const BasicsPage = () => {
-  const openai = new OpenAI({
-    apiKey: process.env.REACT_APP_OPENAI_API_KEY,
-    dangerouslyAllowBrowser: true,
-  });
-
   const [prompt, setPrompt] = useState("");
   const [apiResponse, setApiResponse] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [openModal, setOpenModal] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-
-    setError(null); // Reset error state
+    setError(null);
 
     try {
       const response = await fetch("http://localhost:5000/chatresponse", {
@@ -33,10 +34,9 @@ const BasicsPage = () => {
         throw new Error("Network response was not ok");
       }
 
-      // Handle the response here if needed
       const data = await response.json();
-      console.log(data);
       setApiResponse(data.text);
+      setOpenModal(true);
     } catch (e) {
       setError("Something went wrong. Please try again.");
       console.error("Error:", e);
@@ -45,40 +45,82 @@ const BasicsPage = () => {
     setLoading(false);
   };
 
+  const handleCloseModal = () => {
+    setOpenModal(false);
+  };
+
   return (
     <>
+      <div style={{ textAlign: "center" }}>
+        <Typography variant="h3" gutterBottom sx={{ fontWeight: "bold", paddingTop: "50px",paddingRight:"20px" }}>
+          Q-Bot
+        </Typography>
+      </div>
       <div
         style={{
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          height: "100vh",
+          minHeight: "calc(100vh - 350px)", // Adjust the height as needed
         }}
       >
-        <form onSubmit={handleSubmit}>
-          <textarea
-            type="text"
+        <form
+          onSubmit={handleSubmit}
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+          }}
+        >
+          <TextareaAutosize
+            rowsMin={4}
+            placeholder="Please ask Q-Bot"
             value={prompt}
-            placeholder="Please ask OpenAI"
             onChange={(e) => setPrompt(e.target.value)}
-          ></textarea>
-          <button disabled={loading || prompt.length === 0} type="submit">
+            style={{
+              width: "100%",
+              padding: "10px",
+              marginBottom: "2px",
+              marginRight: "20px",
+              border: "1px solid black", // Adding margin between Textarea and Button
+            }}
+          />
+          <Button
+            style={{
+              border: "1px solid black",
+              padding: "8px 24px",
+              backgroundColor: "#3f51b5",
+              color: "white",
+              borderRadius: "5px",
+              cursor: "pointer",
+              outline: "none",
+              border: "none",
+              boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+              transition: "background-color 0.3s ease",
+            }}
+            disabled={loading || prompt.length === 0}
+            type="submit"
+          >
             {loading ? "Generating..." : "Generate"}
-          </button>
+          </Button>
         </form>
       </div>
+
+      <Dialog open={openModal} onClose={handleCloseModal}>
+        <DialogContent>
+          <Typography variant="h6" style={{ fontWeight: "bold" }}>
+            {prompt}
+          </Typography>
+
+          <Typography>{apiResponse}</Typography>
+        </DialogContent>
+      </Dialog>
+
       {error && (
         <div style={{ display: "flex", justifyContent: "center" }}>
-          <pre>
-            <strong>Error:</strong> {error}
-          </pre>
-        </div>
-      )}
-      {apiResponse && (
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          <pre>
-            <strong>API response:</strong> {apiResponse}
-          </pre>
+          <Typography variant="body1" color="error">
+            Error: {error}
+          </Typography>
         </div>
       )}
     </>
