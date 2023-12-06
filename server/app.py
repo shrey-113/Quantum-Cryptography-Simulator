@@ -3,6 +3,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from bb84 import perform_qkd_simulation
 from e91 import perform_e91_simulation
+from chatbot import getresponsefromchatbot
 
 app = Flask(__name__)
 CORS(app)
@@ -46,6 +47,31 @@ def run_e91():
         result['Alice Bases'] = result['Alice Bases'].tolist()
         result['Bob Bases'] = result['Bob Bases'].tolist()
         return jsonify(result)
+
+    except Exception as e:
+        error_message = str(e)
+        print(error_message)
+        return jsonify({'error': error_message}), 500
+
+
+@app.route('/chatresponse', methods=['POST'])
+def getChatRespone():
+    try:
+        data = request.json
+        prompt = data.get('prompt')
+        print(prompt)
+        
+        if prompt is None:
+            raise ValueError("Missing 'prompt' in the request.")
+        
+        # Run the simulation
+        result = getresponsefromchatbot(prompt)
+
+        response_data = {'text': result.content}
+
+        print(response_data)
+
+        return jsonify(response_data)
 
     except Exception as e:
         error_message = str(e)

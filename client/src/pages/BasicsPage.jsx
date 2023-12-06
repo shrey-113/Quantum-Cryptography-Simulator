@@ -19,18 +19,24 @@ const BasicsPage = () => {
     setError(null); // Reset error state
 
     try {
-      const result = await openai.chat.completions.create({
-        messages: [{ role: "user", content: {prompt } }],
-        model: "gpt-3.5-turbo",
-        stream:"true"
-        
+      const response = await fetch("http://localhost:5000/chatresponse", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          prompt: prompt,
+        }),
       });
-      for await (const chunk of result) {
-        console.log(chunk.choices[0]?.delta?.content || "");
-    }
 
-      console.log(result)
-      setApiResponse(result);
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      // Handle the response here if needed
+      const data = await response.json();
+      console.log(data);
+      setApiResponse(data.text);
     } catch (e) {
       setError("Something went wrong. Please try again.");
       console.error("Error:", e);
@@ -41,7 +47,14 @@ const BasicsPage = () => {
 
   return (
     <>
-      <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
         <form onSubmit={handleSubmit}>
           <textarea
             type="text"
